@@ -4,10 +4,31 @@
 <meta charset="utf-8"/>
 <title>fu — field notes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<meta name="description" content="an archive of looking."/>
+<meta name="description" content="an archive of looking. people i met, people i know, the light that found them."/>
+
+<!-- favicon: F. in serif italic on the site's own bg -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a0908'/><text x='50' y='75' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='75' fill='%23f4efe6'>F.</text></svg>">
+
+<!-- open graph / twitter cards for link previews -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aikhojestudios.github.io/Documentary/">
+<meta property="og:title" content="fu — field notes">
+<meta property="og:description" content="an archive of looking. people i met, people i know, the light that found them.">
+<meta property="og:image" content="https://aikhojestudios.github.io/Documentary/images/027.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="fu — field notes">
+<meta name="twitter:description" content="an archive of looking.">
+<meta name="twitter:image" content="https://aikhojestudios.github.io/Documentary/images/027.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+
+<!-- preload first frames so the intro and reel-start don't ghost on slow connections -->
+<link rel="preload" as="image" href="images/027.jpg">
+<link rel="preload" as="image" href="images/002.jpg">
+<link rel="preload" as="image" href="images/003.jpg">
+
 <style>
   :root{
     --bg:#0a0908; --bg-2:#121110;
@@ -15,10 +36,24 @@
     --hairline:rgba(244,239,230,0.09);
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
-  html,body{height:100%}
-  body{height:100vh;overflow-x:auto;overflow-y:hidden;display:flex;flex-direction:row;flex-wrap:nowrap;scroll-snap-type:x mandatory}
-  body::-webkit-scrollbar{height:0;display:none}
+
+  /* vertical scroll: html is the snap container */
+  html{
+    scroll-snap-type:y mandatory;
+    overflow-x:hidden;
+    scrollbar-width:none;
+  }
+  html::-webkit-scrollbar{width:0;display:none}
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
   ::selection{background:var(--ink);color:var(--bg)}
   body::after{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at center,transparent 0%,rgba(0,0,0,0.35) 100%);z-index:2}
 
@@ -31,7 +66,7 @@
   .chrome a:hover{color:var(--ink)}
 
   /* intro */
-  .intro{flex:0 0 100vw;width:100vw;height:100vh;display:flex;align-items:center;justify-content:center;padding:0 32px;position:relative;overflow:hidden;scroll-snap-align:start}
+  .intro{width:100%;height:100vh;display:flex;align-items:center;justify-content:center;padding:0 32px;position:relative;overflow:hidden;scroll-snap-align:start}
   .intro .backdrop{position:absolute;inset:0;z-index:0;overflow:hidden}
   .intro .backdrop img{width:100%;height:100%;object-fit:cover;object-position:center;opacity:.85;filter:contrast(1.08) brightness(1.1)}
   .intro .backdrop::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(10,9,8,0.15) 0%,rgba(10,9,8,0.6) 70%,rgba(10,9,8,0.85) 100%)}
@@ -41,18 +76,20 @@
   .intro .center h1{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(72px,10vw,160px);line-height:.88;letter-spacing:-0.02em;margin-bottom:28px;text-shadow:0 2px 40px rgba(0,0,0,0.6)}
   .intro .center h1 .alt{font-style:normal;color:var(--ink-soft);font-family:'Inter',sans-serif;font-size:13px;letter-spacing:0.4em;display:block;text-transform:uppercase;margin-top:20px;font-weight:300}
   .intro .center .tag{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--ink);max-width:36ch;margin:0 auto 8px;line-height:1.5;text-shadow:0 2px 20px rgba(0,0,0,0.7)}
-  .intro .center .tag.small{font-family:'Inter',sans-serif;font-style:normal;font-size:12px;letter-spacing:0.08em;color:var(--ink-soft);margin-top:8px}
-  .intro .enter{position:absolute;bottom:64px;right:48px;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-direction:row;align-items:center;gap:14px;animation:breathe 3s ease-in-out infinite;z-index:1}
-  @keyframes breathe{0%,100%{opacity:.4}50%{opacity:1}}
-  .intro .enter .line{width:56px;height:1px;background:linear-gradient(to right,var(--ink-soft),transparent)}
 
-  /* reel — horizontal, every frame equal, full viewport, generous air */
+  /* enter cue — vertical orientation, with bouncing arrow */
+  .intro .enter{position:absolute;bottom:48px;left:50%;transform:translateX(-50%);font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-soft);display:flex;flex-direction:column;align-items:center;gap:14px;animation:breathe 3s ease-in-out infinite;z-index:1}
+  @keyframes breathe{0%,100%{opacity:.4}50%{opacity:1}}
+  .intro .enter .line{width:1px;height:48px;background:linear-gradient(to bottom,var(--ink-soft),transparent)}
+  .intro .enter .arrow{display:inline-block;animation:hint-bounce 1.8s ease-in-out infinite}
+  @keyframes hint-bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+  /* reel — vertical, every frame full viewport */
   .reel{display:contents}
-  .shot{flex:0 0 100vw;width:100vw;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px 80px;position:relative;scroll-snap-align:start}
+  .shot{width:100%;height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 32px 80px;position:relative;scroll-snap-align:start}
   .shot .focus{position:relative;width:100%;display:flex;align-items:center;justify-content:center}
   .shot .focus .main{cursor:pointer;position:relative;transition:transform .6s cubic-bezier(.2,.7,.2,1);box-shadow:0 40px 100px -30px rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center}
   .shot .focus .main:hover{transform:scale(1.004)}
-  /* every image fits inside the same invisible box — no image is bigger than another */
   .shot .focus .main img{max-width:min(72vw,1100px);max-height:74vh;width:auto;height:auto;display:block}
   .shot .markers{margin-top:28px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
   .shot .markers .fn{font-family:'Instrument Serif',serif;font-style:italic;font-size:13px;color:var(--ink-soft);letter-spacing:0.02em}
@@ -61,8 +98,13 @@
   .shot .markers .cap{font-family:'Instrument Serif',serif;font-style:italic;font-size:17px;color:var(--ink);max-width:42ch}
   body.captions-off .shot .markers .cap{visibility:hidden}
 
-  /* colophon */
-  .colophon{flex:0 0 100vw;width:100vw;height:100vh;padding:120px 80px 120px;border-left:1px solid var(--hairline);display:grid;grid-template-columns:1.5fr 1fr;gap:80px;align-items:start;scroll-snap-align:start;overflow:hidden}
+  /* end-link: appears only on the final reel shot, invites you into field notes */
+  .shot .end-link{position:absolute;bottom:64px;right:48px;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-soft);text-decoration:none;display:flex;align-items:center;gap:10px;z-index:3;transition:color .3s}
+  .shot .end-link:hover{color:var(--ink)}
+  .shot .end-link .arrow{display:inline-block;animation:hint-bounce 1.8s ease-in-out infinite}
+
+  /* field notes (formerly colophon) */
+  .colophon{width:100%;min-height:100vh;padding:120px 80px;border-top:1px solid var(--hairline);display:grid;grid-template-columns:1.5fr 1fr;gap:80px;align-items:start;scroll-snap-align:start}
   .colophon .big{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(36px,4vw,56px);line-height:1.15;font-weight:400;letter-spacing:-0.01em;color:var(--ink);max-width:18ch}
   .colophon .big .soft{color:var(--ink-soft)}
   .colophon .aside{font-size:13px;line-height:1.8;color:var(--ink-soft);padding-top:16px}
@@ -76,10 +118,11 @@
   .status{position:fixed;bottom:0;left:0;right:0;padding:14px 32px;display:flex;justify-content:space-between;align-items:center;font-size:9px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-ghost);z-index:30;border-top:1px solid var(--hairline);background:linear-gradient(to top,rgba(10,9,8,0.92),transparent);backdrop-filter:blur(4px)}
   .status .counter{color:var(--ink);font-family:'Instrument Serif',serif;font-style:italic;font-size:15px;letter-spacing:0.02em;text-transform:none;font-weight:400}
   .status .counter .sep{color:var(--ink-ghost);margin:0 6px}
-  .status .scroll-hint{display:flex;align-items:center;gap:10px}
+  .status .scroll-hint{display:flex;align-items:center;gap:14px}
+  .status .scroll-hint .primary{color:var(--ink-soft)}
+  .status .scroll-hint .kbd{color:var(--ink-ghost)}
   .status .scroll-hint .tick{width:60px;height:1px;background:var(--ink-ghost);position:relative;overflow:hidden}
   .status .scroll-hint .tick::after{content:'';position:absolute;left:0;top:0;height:100%;background:var(--ink);width:var(--progress,0%);transition:width .2s}
-  .status .scroll-hint .tick::before{content:'';position:absolute;left:0;top:-2px;bottom:-2px;width:1px;background:var(--ink-ghost)}
 
   /* lightbox */
   .lightbox{position:fixed;inset:0;background:#000;z-index:100;display:none;align-items:center;justify-content:center;opacity:0;transition:opacity .4s}
@@ -94,7 +137,7 @@
   .lightbox .lb-next{right:12px}
   .lightbox .lb-caption{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Instrument Serif',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.7)}
 
-  /* tweaks */
+  /* tweaks (editor-mode only, hidden in production) */
   #tweaks{position:fixed;bottom:64px;right:20px;background:rgba(18,17,16,0.92);backdrop-filter:blur(10px);border:1px solid var(--hairline);padding:14px 18px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.1em;color:var(--ink-soft);z-index:40;display:none}
   #tweaks.visible{display:block}
   #tweaks .title{font-size:9px;letter-spacing:0.32em;margin-bottom:10px;color:var(--ink-ghost);text-transform:uppercase}
@@ -105,12 +148,13 @@
     .intro{padding:80px 20px 120px}
     .shot{padding:40px 16px 72px}
     .shot .focus .main img{max-width:92vw;max-height:70vh}
-    .colophon{grid-template-columns:1fr;gap:32px;padding:80px 20px 100px;height:100vh;overflow-y:auto}
+    .shot .end-link{bottom:80px;right:16px}
+    .colophon{grid-template-columns:1fr;gap:32px;padding:80px 20px 100px}
     .colophon .sig{font-size:80px;margin-top:20px}
     .chrome{padding:16px 18px}
     .chrome nav{gap:18px}
     .status{padding:10px 16px;font-size:8px}
-    .status .scroll-hint span{display:none}
+    .status .scroll-hint .kbd{display:none}
   }
 </style>
 </head>
@@ -130,12 +174,11 @@
     <div class="eyebrow">what is this strange place?</div>
     <h1>fu.<span class="alt">field notes</span></h1>
     <p class="tag">people &amp; light.</p>
-    <p class="tag small">no plan… ever</p>
   </div>
   <div class="enter">
-    <span>enter the reel</span>
+    <span>scroll</span>
     <div class="line"></div>
-    <span>→</span>
+    <span class="arrow">↓</span>
   </div>
 </section>
 
@@ -162,7 +205,8 @@
 <div class="status">
   <div class="counter" id="counter">i <span class="sep">/</span> xix</div>
   <div class="scroll-hint">
-    <span>click to expand · esc to close · ← →</span>
+    <span class="primary">tap to expand</span>
+    <span class="kbd">· esc to close · ↑ ↓</span>
     <div class="tick" id="tick"></div>
   </div>
 </div>
@@ -184,7 +228,7 @@
 <script>
   const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi','xxvii','xxviii'];
 
-  // Available images (9 were skipped by upstream as oversized — only these live in /images)
+  // 27 frames in reel order (027 is reserved as the intro backdrop)
   const IMAGES = [
     "images/002.jpg","images/003.jpg","images/004.jpg","images/005.jpg",
     "images/006.jpg","images/007.jpg","images/008.jpg","images/009.jpg","images/010.png",
@@ -204,18 +248,10 @@
   document.getElementById('lbNo').textContent = `${ROMAN[0]} / ${ROMAN[TOTAL-1]}`;
 
   const reel = document.getElementById('reel');
-  const periClasses = ['pf wide','pf','pf sq'];
 
   IMAGES.forEach((src, i) => {
-    const prev = IMAGES[(i - 1 + TOTAL) % TOTAL];
-    const next = IMAGES[(i + 1) % TOTAL];
-    const before = IMAGES[(i - 2 + TOTAL) % TOTAL];
-    const after = IMAGES[(i + 2) % TOTAL];
     const cap = CAPTIONS[i] || '';
-    const pL1 = periClasses[i % 3];
-    const pL2 = periClasses[(i+1) % 3];
-    const pR1 = periClasses[(i+2) % 3];
-    const pR2 = periClasses[(i) % 3];
+    const isLast = i === TOTAL - 1;
 
     const shot = document.createElement('section');
     shot.className = 'shot';
@@ -228,47 +264,38 @@
         <div class="fn">${ROMAN[i]} · ${String(i+1).padStart(2,'0')} of ${String(TOTAL).padStart(2,'0')}</div>
         ${cap ? `<div class="cap">${cap}</div>` : ''}
       </div>
+      ${isLast ? `<a class="end-link" href="#field-notes"><span>field notes</span><span class="arrow">↓</span></a>` : ''}
     `;
     reel.appendChild(shot);
   });
 
-  // counter + progress
+  // counter + progress (vertical)
   const counterEl = document.getElementById('counter');
   const tickEl = document.getElementById('tick');
   function updateCounter() {
     const shots = document.querySelectorAll('.shot');
-    const center = window.innerWidth / 2;
+    const center = window.innerHeight / 2;
     let closest = 0, closestDist = Infinity;
     shots.forEach((s, idx) => {
       const r = s.getBoundingClientRect();
-      const mid = r.left + r.width / 2;
+      const mid = r.top + r.height / 2;
       const d = Math.abs(mid - center);
       if (d < closestDist) { closestDist = d; closest = idx; }
     });
     counterEl.innerHTML = `${ROMAN[closest]} <span class="sep">/</span> ${ROMAN[TOTAL-1]}`;
-    const maxScroll = document.body.scrollWidth - window.innerWidth;
-    const p = maxScroll > 0 ? Math.min(100, Math.max(0, (document.body.scrollLeft / maxScroll) * 100)) : 0;
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    const p = maxScroll > 0 ? Math.min(100, Math.max(0, (window.scrollY / maxScroll) * 100)) : 0;
     tickEl.style.setProperty('--progress', p + '%');
   }
-  document.body.addEventListener('scroll', updateCounter, { passive: true });
   window.addEventListener('scroll', updateCounter, { passive: true });
   window.addEventListener('resize', updateCounter);
   updateCounter();
 
-  // translate vertical wheel into horizontal scroll
-  document.body.addEventListener('wheel', (e) => {
-    if (lb.classList.contains('open')) return;
-    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-      document.body.scrollLeft += e.deltaY;
-      e.preventDefault();
-    }
-  }, { passive: false });
-
-  // keyboard nav between panels
+  // keyboard nav between panels (vertical)
   document.addEventListener('keydown', (e) => {
     if (lb.classList.contains('open')) return;
-    if (e.key === 'ArrowRight' || e.key === 'PageDown') { document.body.scrollBy({left: window.innerWidth, behavior:'smooth'}); }
-    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { document.body.scrollBy({left: -window.innerWidth, behavior:'smooth'}); }
+    if (e.key === 'ArrowDown' || e.key === 'PageDown') { window.scrollBy({top: window.innerHeight, behavior:'smooth'}); }
+    if (e.key === 'ArrowUp' || e.key === 'PageUp') { window.scrollBy({top: -window.innerHeight, behavior:'smooth'}); }
   });
 
   // lightbox
@@ -301,10 +328,8 @@
     if (e.key === 'ArrowRight') step(1);
   });
 
-  // tweaks
-  const TWEAKS = /*EDITMODE-BEGIN*/{
-    "captionsVisible": false
-  }/*EDITMODE-END*/;
+  // tweaks (editor-mode only)
+  const TWEAKS = {"captionsVisible": false};
   function applyTweaks() {
     document.body.classList.toggle('captions-off', !TWEAKS.captionsVisible);
     document.getElementById('captionsToggle').checked = TWEAKS.captionsVisible;

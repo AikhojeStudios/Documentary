@@ -305,20 +305,20 @@
   }
   const IMAGES = shuffle(IMAGES_BASE);
 
-  // Which photos are available as prints. Edit this set to toggle availability.
-  // Keys are image filenames (matching entries in IMAGES_BASE).
-  // Anything NOT in this set shows no inquire link — silence by default.
-  const PRINTS_AVAILABLE = new Set([
-    "images/002.jpg",   // market boy, hand at chin
-    "images/004.jpg",   // old man portrait, white beard
-    "images/006.jpg",   // pink JAMES 10 jersey in the boat
-    "images/009.jpg",   // makoko boy on wood piles
-    "images/012.jpg",   // YMCMB red cap, smoking
-    "images/013.jpg",   // haile selassie shirt torso
-    "images/016.jpg",   // man on motorbike looking back
-    "images/019.jpg",   // boxing gym under the mango tree (b&w wide)
-    "images/026.jpg",   // sunset over water
-    "images/036.jpg",   // boxing gym, the observer and the boxer (color detail)
+  // Which photos are available as prints. Edit this map to toggle availability.
+  // Keys are image filenames; values are short human-readable labels used in inquiry emails
+  // so Fu can tell at a glance which print the visitor means.
+  const PRINTS_AVAILABLE = new Map([
+    ["images/002.jpg", "market boy, hand at chin"],
+    ["images/004.jpg", "old man portrait, white beard"],
+    ["images/006.jpg", "pink JAMES 10 jersey, in the boat"],
+    ["images/009.jpg", "makoko boy on wood piles"],
+    ["images/012.jpg", "YMCMB red cap, smoking"],
+    ["images/013.jpg", "haile selassie shirt torso"],
+    ["images/016.jpg", "man on motorbike looking back"],
+    ["images/019.jpg", "boxing gym under the mango tree (b&w)"],
+    ["images/026.jpg", "sunset over water"],
+    ["images/036.jpg", "boxer and observer (color)"],
   ]);
 
   // Optional one-line thoughts — sparingly. Empty string = no caption.
@@ -471,8 +471,9 @@
       // print inquiry link, images only
       if (PRINTS_AVAILABLE.has(src)) {
         const filename = src.split('/').pop();
-        const subject = encodeURIComponent(`print inquiry — ${ROMAN[i]} (${filename})`);
-        const body = encodeURIComponent(`hi fu,\n\ni'd like to inquire about a print of ${ROMAN[i]} (${filename}).\n\n`);
+        const label = PRINTS_AVAILABLE.get(src);
+        const subject = encodeURIComponent(`print inquiry — ${label} (${filename})`);
+        const body = encodeURIComponent(`hi fu,\n\ni'd like to inquire about a print of "${label}" (${filename}).\n\n`);
         lbInquire.href = `mailto:mr.aikhoje@me.com?subject=${subject}&body=${body}`;
         lbInquire.classList.add('visible');
       } else {

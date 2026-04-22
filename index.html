@@ -24,10 +24,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
 
-<!-- preload first frames so the intro and reel-start don't ghost on slow connections -->
+<!-- preload the intro backdrop so it never ghosts on slow connections.
+     reel frames are randomized per load, so no predictable first shot to preload. -->
 <link rel="preload" as="image" href="images/027.jpg">
-<link rel="preload" as="image" href="images/002.jpg">
-<link rel="preload" as="image" href="images/003.jpg">
 
 <style>
   :root{
@@ -229,8 +228,9 @@
 <script>
   const ROMAN = ['i','ii','iii','iv','v','vi','vii','viii','ix','x','xi','xii','xiii','xiv','xv','xvi','xvii','xviii','xix','xx','xxi','xxii','xxiii','xxiv','xxv','xxvi','xxvii','xxviii'];
 
-  // 33 frames in reel (027 reserved as the intro backdrop). Order is intentional shuffle.
-  const IMAGES = [
+  // 33 frames in the reel (027 is reserved as the intro backdrop).
+  // Base list — order gets shuffled once per page load below.
+  const IMAGES_BASE = [
     "images/008.jpg", "images/024.jpg", "images/026.jpg", "images/033.jpg",
     "images/005.jpg", "images/011.jpg", "images/006.jpg", "images/016.jpg",
     "images/032.jpg", "images/001.jpg", "images/020.jpg", "images/009.jpg",
@@ -241,6 +241,17 @@
     "images/002.jpg", "images/034.jpg", "images/013.jpg", "images/010.png",
     "images/021.jpg"
   ];
+
+  // Fisher-Yates shuffle — unbiased. Runs once per page load, stable within session.
+  function shuffle(arr) {
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+  const IMAGES = shuffle(IMAGES_BASE);
 
   // Optional one-line thoughts — sparingly. Empty string = no caption.
   const CAPTIONS = {

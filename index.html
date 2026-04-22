@@ -145,6 +145,12 @@
   .lightbox .lb-prev{left:12px}
   .lightbox .lb-next{right:12px}
   .lightbox .lb-caption{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);font-family:'Instrument Serif',serif;font-style:italic;font-size:17px;color:rgba(255,255,255,0.7)}
+  .lightbox .lb-inquire{position:absolute;bottom:32px;right:32px;font-family:'Instrument Serif',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,0.38);text-decoration:none;letter-spacing:0.01em;transition:color .3s;opacity:0;pointer-events:none}
+  .lightbox .lb-inquire.visible{opacity:1;pointer-events:auto}
+  .lightbox .lb-inquire:hover{color:rgba(255,255,255,0.85)}
+  @media (max-width:900px){
+    .lightbox .lb-inquire{bottom:14px;right:16px;font-size:11px}
+  }
 
   /* tweaks (editor-mode only, hidden in production) */
   #tweaks{position:fixed;bottom:64px;right:20px;background:rgba(18,17,16,0.92);backdrop-filter:blur(10px);border:1px solid var(--hairline);padding:14px 18px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:0.1em;color:var(--ink-soft);z-index:40;display:none}
@@ -231,6 +237,7 @@
   <img id="lbImg" src="" alt=""/>
   <button class="lb-nav lb-next" id="lbNext" aria-label="Next">→</button>
   <div class="lb-caption" id="lbCaption"></div>
+  <a class="lb-inquire" id="lbInquire" href="#" title="inquire about a print of this image">available as a print — inquire</a>
 </div>
 
 <div id="tweaks">
@@ -287,6 +294,15 @@
     return a;
   }
   const IMAGES = shuffle(IMAGES_BASE);
+
+  // Which photos are available as prints. Edit this set to toggle availability.
+  // Keys are image filenames (matching entries in IMAGES_BASE).
+  // Anything NOT in this set shows no inquire link — silence by default.
+  const PRINTS_AVAILABLE = new Set([
+    // "images/013.jpg",   // Haile Selassie torso
+    // "images/019.jpg",   // boxing gym under mango tree
+    // Add or remove filenames here to control what's available.
+  ]);
 
   // Optional one-line thoughts — sparingly. Empty string = no caption.
   const CAPTIONS = {
@@ -388,12 +404,27 @@
   const lbImg = document.getElementById('lbImg');
   const lbCap = document.getElementById('lbCaption');
   const lbNo = document.getElementById('lbNo');
+  const lbInquire = document.getElementById('lbInquire');
   let current = 0;
   function openLB(i) {
     current = i;
-    lbImg.src = IMAGES[i];
+    const src = IMAGES[i];
+    lbImg.src = src;
     lbCap.textContent = CAPTIONS[i] ? '— ' + CAPTIONS[i] + ' —' : '';
     lbNo.textContent = `${ROMAN[i]} / ${ROMAN[TOTAL-1]}`;
+
+    // show inquire link only if this frame is available as a print
+    if (PRINTS_AVAILABLE.has(src)) {
+      const filename = src.split('/').pop();
+      const subject = encodeURIComponent(`print inquiry — ${ROMAN[i]} (${filename})`);
+      const body = encodeURIComponent(`hi fu,\n\ni'd like to inquire about a print of ${ROMAN[i]} (${filename}).\n\n`);
+      lbInquire.href = `mailto:mr.aikhoje@me.com?subject=${subject}&body=${body}`;
+      lbInquire.classList.add('visible');
+    } else {
+      lbInquire.classList.remove('visible');
+      lbInquire.removeAttribute('href');
+    }
+
     lb.classList.add('open');
     lb.setAttribute('aria-hidden','false');
     document.body.style.overflow = 'hidden';

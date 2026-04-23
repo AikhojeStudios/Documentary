@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>first light — field notes — fu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="a few words on starting this — why the archive, why the writing, and why they need each other."/>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a0908'/><text x='50' y='75' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='75' fill='%23f4efe6'>F.</text></svg>">
+
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://fufunsoup.com/field-notes/first-light/">
+<meta property="og:title" content="first light — fu">
+<meta property="og:description" content="a few words on starting this — why the archive, why the writing, and why they need each other.">
+<meta property="og:image" content="https://fufunsoup.com/images/027.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0a0908; --bg-2:#121110;
+    --ink:#f4efe6; --ink-soft:#8a857a; --ink-ghost:#4a463f;
+    --hairline:rgba(244,239,230,0.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    line-height:1.7;
+  }
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  a{color:inherit;text-decoration:none;transition:color .3s, border-color .3s}
+
+  .chrome{position:fixed;top:0;left:0;right:0;padding:22px 32px;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-soft);z-index:30;mix-blend-mode:screen}
+  .chrome .brand{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;letter-spacing:0.01em;text-transform:none;color:var(--ink);font-weight:400}
+  .chrome .brand em{font-style:normal;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.3em;color:var(--ink-soft);padding-left:10px}
+  .chrome nav{display:flex;gap:28px}
+  .chrome a{color:inherit}
+  .chrome a:hover{color:var(--ink)}
+
+  /* post container */
+  .post{max-width:680px;margin:0 auto;padding:140px 32px 80px}
+
+  .post-head{margin-bottom:64px;padding-bottom:40px;border-bottom:1px solid var(--hairline)}
+  .post-head .crumb{display:inline-block;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:28px;padding-bottom:2px;border-bottom:1px solid var(--hairline)}
+  .post-head .crumb:hover{color:var(--ink);border-color:var(--ink)}
+  .post-head .date{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:14px}
+  .post-head h1{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(40px,5.5vw,64px);line-height:1.1;letter-spacing:-0.02em;color:var(--ink)}
+
+  /* post body — reading layout */
+  .post-body{font-size:18px;line-height:1.75;color:var(--ink)}
+  .post-body p{margin-bottom:24px}
+  .post-body p:first-of-type::first-letter{font-family:'Instrument Serif',serif;font-style:italic;font-size:3.8em;float:left;line-height:.92;padding:4px 12px 0 0;color:var(--ink)}
+  .post-body em{font-family:'Instrument Serif',serif;font-style:italic;font-size:1.08em;color:var(--ink)}
+  .post-body strong{font-weight:400;color:var(--ink);border-bottom:1px solid var(--hairline)}
+  .post-body a{border-bottom:1px solid var(--ink-soft);color:var(--ink)}
+  .post-body a:hover{border-color:var(--ink)}
+  .post-body h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:32px;margin-top:48px;margin-bottom:16px;line-height:1.2;color:var(--ink)}
+  .post-body h3{font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft);margin-top:40px;margin-bottom:12px;font-weight:400}
+  .post-body blockquote{border-left:2px solid var(--ink-soft);padding-left:24px;margin:32px 0;font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--ink-soft);line-height:1.5}
+  .post-body hr{border:0;border-top:1px solid var(--hairline);margin:48px auto;width:40%}
+  .post-body ul,.post-body ol{margin:0 0 24px 24px}
+  .post-body li{margin-bottom:8px}
+
+  /* embedded images (full-bleed within the reading column) */
+  .post-body figure{margin:40px -80px;max-width:calc(100% + 160px)}
+  .post-body figure img{width:100%;height:auto;display:block}
+  .post-body figure figcaption{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:var(--ink-soft);text-align:center;margin-top:12px;padding:0 16px}
+
+  /* post end */
+  .post-end{margin-top:80px;padding-top:40px;border-top:1px solid var(--hairline);display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft)}
+  .post-end a{color:var(--ink-soft)}
+  .post-end a:hover{color:var(--ink)}
+  .post-end .sig{font-family:'Instrument Serif',serif;font-style:italic;font-size:16px;color:var(--ink-ghost);letter-spacing:0.02em;text-transform:none}
+
+  /* footer */
+  footer{padding:40px 32px;text-align:center;border-top:1px solid var(--hairline);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-ghost)}
+  footer a{color:var(--ink-soft);border-bottom:1px solid var(--hairline);padding-bottom:2px}
+  footer a:hover{color:var(--ink);border-color:var(--ink)}
+
+  @media (max-width:900px){
+    .chrome{padding:16px 18px}
+    .chrome nav{gap:18px}
+    .post{padding:100px 20px 60px}
+    .post-head h1{font-size:36px}
+    .post-body{font-size:17px}
+    .post-body figure{margin:32px -20px;max-width:calc(100% + 40px)}
+    .post-body p:first-of-type::first-letter{font-size:3.2em}
+  }
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="brand" href="/">fu<em>field notes</em></a>
+  <nav>
+    <a href="/field-notes/">field notes</a>
+    <a href="mailto:mr.aikhoje@me.com">contact</a>
+    <a href="https://www.instagram.com/fufunsoup" target="_blank" rel="noopener">instagram</a>
+  </nav>
+</div>
+
+<article class="post">
+  <header class="post-head">
+    <a class="crumb" href="/field-notes/">← field notes</a>
+    <div class="date">2026.04.22</div>
+    <h1>first light</h1>
+  </header>
+
+  <div class="post-body">
+    <p>the archive has been up for a while now. photographs i've made over the years, pulled out of folders as i find them, shuffled fresh every time someone visits. it does what it was meant to do — hold the work, let it be seen, stay out of its own way.</p>
+
+    <p>but photographs don't answer every question someone might have. how was this made. what was going on that day. why film here, digital there. what the darkroom is for. why i went back to lagos, why i stopped, why the camera turned toward the people i know. questions i get in dms, in person, and sometimes in my own head.</p>
+
+    <p>so: this.</p>
+
+    <p>this is where the writing lives. not a blog in the usual sense — no schedule, no optimization, no takes on other people's work. just notes. process, doubts, small technical pieces, the occasional longer thought when one shows up. posts will come when they come. some will be a paragraph. some might be longer. all of them will sit here quietly, waiting to be read by whoever needs them.</p>
+
+    <p>the archive is the looking. this is the looking back.</p>
+  </div>
+
+  <div class="post-end">
+    <a href="/field-notes/">← all notes</a>
+    <span class="sig">fu.</span>
+  </div>
+</article>
+
+<footer>
+  <a href="/">← return to archive</a>
+</footer>
+
+</body>
+</html>

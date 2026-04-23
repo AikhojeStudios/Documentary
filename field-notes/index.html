@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>field notes — fu</title>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<meta name="description" content="writing from fu — notes from the field, thoughts behind the work."/>
+
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230a0908'/><text x='50' y='75' text-anchor='middle' font-family='Georgia,serif' font-style='italic' font-size='75' fill='%23f4efe6'>F.</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://fufunsoup.com/field-notes/">
+<meta property="og:title" content="field notes — fu">
+<meta property="og:description" content="writing from fu — notes from the field, thoughts behind the work.">
+<meta property="og:image" content="https://fufunsoup.com/images/027.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0a0908; --bg-2:#121110;
+    --ink:#f4efe6; --ink-soft:#8a857a; --ink-ghost:#4a463f;
+    --hairline:rgba(244,239,230,0.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Inter',system-ui,sans-serif;
+    font-weight:300;
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;
+    line-height:1.6;
+  }
+  ::selection{background:var(--ink);color:var(--bg)}
+
+  a{color:inherit;text-decoration:none;transition:color .3s, border-color .3s}
+
+  /* chrome (shared with main site) */
+  .chrome{position:fixed;top:0;left:0;right:0;padding:22px 32px;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:0.32em;text-transform:uppercase;color:var(--ink-soft);z-index:30;mix-blend-mode:screen}
+  .chrome .brand{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;letter-spacing:0.01em;text-transform:none;color:var(--ink);font-weight:400}
+  .chrome .brand em{font-style:normal;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:0.3em;color:var(--ink-soft);padding-left:10px}
+  .chrome nav{display:flex;gap:28px}
+  .chrome a{color:inherit}
+  .chrome a:hover{color:var(--ink)}
+  .chrome a.active{color:var(--ink)}
+
+  /* page header */
+  .page-head{padding:140px 32px 60px;max-width:900px;margin:0 auto;border-bottom:1px solid var(--hairline)}
+  .page-head .eyebrow{display:inline-flex;align-items:center;gap:14px;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:24px}
+  .page-head .eyebrow::before{content:'';width:28px;height:1px;background:var(--ink-soft)}
+  .page-head h1{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:clamp(48px,7vw,96px);line-height:1;letter-spacing:-0.02em;margin-bottom:24px}
+  .page-head .sub{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--ink-soft);max-width:46ch;line-height:1.5}
+
+  /* post list */
+  .posts{max-width:900px;margin:0 auto;padding:40px 32px 120px}
+  .post-item{display:block;padding:32px 0;border-bottom:1px solid var(--hairline);transition:padding .3s}
+  .post-item:last-child{border-bottom:0}
+  .post-item:hover{padding-left:12px}
+  .post-item .date{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+  .post-item h2{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;font-size:36px;line-height:1.15;color:var(--ink);margin-bottom:8px;letter-spacing:-0.01em}
+  .post-item .excerpt{font-family:'Instrument Serif',serif;font-style:italic;font-size:18px;color:var(--ink-soft);max-width:60ch;line-height:1.5}
+  .post-item .arrow{display:inline-block;margin-left:10px;color:var(--ink-ghost);transition:transform .3s, color .3s}
+  .post-item:hover .arrow{transform:translateX(6px);color:var(--ink)}
+
+  /* empty state (if no posts yet) */
+  .empty{max-width:900px;margin:0 auto;padding:80px 32px 120px;text-align:center}
+  .empty p{font-family:'Instrument Serif',serif;font-style:italic;font-size:22px;color:var(--ink-soft);max-width:40ch;margin:0 auto;line-height:1.5}
+
+  /* footer — matches closing block from main site */
+  footer{padding:60px 32px;text-align:center;border-top:1px solid var(--hairline);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-ghost)}
+  footer a{color:var(--ink-soft);border-bottom:1px solid var(--hairline);padding-bottom:2px}
+  footer a:hover{color:var(--ink);border-color:var(--ink)}
+
+  @media (max-width:900px){
+    .chrome{padding:16px 18px}
+    .chrome nav{gap:18px}
+    .page-head{padding:100px 20px 48px}
+    .page-head h1{font-size:48px}
+    .posts{padding:32px 20px 80px}
+    .post-item h2{font-size:26px}
+    .post-item .excerpt{font-size:16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="chrome">
+  <a class="brand" href="/">fu<em>field notes</em></a>
+  <nav>
+    <a href="/field-notes/" class="active">field notes</a>
+    <a href="mailto:mr.aikhoje@me.com">contact</a>
+    <a href="https://www.instagram.com/fufunsoup" target="_blank" rel="noopener">instagram</a>
+  </nav>
+</div>
+
+<header class="page-head">
+  <div class="eyebrow">writing</div>
+  <h1>field notes</h1>
+  <p class="sub">notes from the field — thoughts behind the work, technical details, things i get asked about, and whatever else wants to be written down.</p>
+</header>
+
+<main class="posts" id="posts">
+  <a class="post-item" href="/field-notes/first-light/">
+    <div class="date">2026.04.22</div>
+    <h2>first light<span class="arrow">→</span></h2>
+    <p class="excerpt">a few words on starting this — why the archive, why the writing, and why they need each other.</p>
+  </a>
+</main>
+
+<footer>
+  <a href="/">← return to archive</a>
+</footer>
+
+</body>
+</html>

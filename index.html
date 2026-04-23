@@ -180,9 +180,9 @@
 <body>
 
 <div class="chrome">
-  <div class="brand">fu<em>field notes</em></div>
+  <a class="brand" href="/">fu<em>field notes</em></a>
   <nav>
-    <a href="#field-notes">field notes</a>
+    <a href="/field-notes/">field notes</a>
     <a href="mailto:mr.aikhoje@me.com">contact</a>
     <a href="https://www.instagram.com/fufunsoup" target="_blank" rel="noopener">instagram</a>
   </nav>
@@ -204,7 +204,7 @@
 
 <main class="reel" id="reel"></main>
 
-<section class="colophon" id="field-notes" data-screen-label="99 Field Notes">
+<section class="colophon" id="closing" data-screen-label="99 End">
   <div class="big">making sense of this strange place — <span class="soft">light is very important.</span></div>
   <div>
     <div class="aside">
@@ -334,7 +334,6 @@
 
   IMAGES.forEach((src, i) => {
     const cap = CAPTIONS[i] || '';
-    const isLast = i === TOTAL - 1;
 
     const shot = document.createElement('section');
     shot.className = 'shot';
@@ -353,7 +352,6 @@
         <div class="fn">${ROMAN[i]} · ${String(i+1).padStart(2,'0')} of ${String(TOTAL).padStart(2,'0')}</div>
         ${cap ? `<div class="cap">${cap}</div>` : ''}
       </div>
-      ${isLast ? `<a class="end-link" href="#field-notes"><span>field notes</span><span class="arrow">↓</span></a>` : ''}
     `;
     reel.appendChild(shot);
   });

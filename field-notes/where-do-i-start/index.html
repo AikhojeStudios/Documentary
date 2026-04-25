@@ -80,6 +80,11 @@
   .post-end a{color:var(--ink-soft)}
   .post-end a:hover{color:var(--ink)}
   .post-end .sig{font-family:'Instrument Serif',serif;font-style:italic;font-size:16px;color:var(--ink-ghost);letter-spacing:0.02em;text-transform:none}
+  .post-end .reply{font-family:'Instrument Serif',serif;font-style:italic;font-size:16px;color:var(--ink-soft);letter-spacing:0.01em;text-transform:none;border-bottom:1px solid var(--hairline);padding-bottom:1px;transition:color .3s, border-color .3s}
+  .post-end .reply:hover{color:var(--ink);border-color:var(--ink)}
+  @media (max-width:600px){
+    .post-end{flex-direction:column;gap:18px;align-items:flex-start}
+  }
 
   /* footer */
   footer{padding:40px 32px;text-align:center;border-top:1px solid var(--hairline);font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--ink-ghost)}
@@ -135,6 +140,7 @@
 
   <div class="post-end">
     <a href="/field-notes/">← all notes</a>
+    <a class="reply" href="mailto:mr.aikhoje@me.com?subject=re%3A%20where%20do%20i%20start&body=hi%20fu%2C%0A%0A">thoughts? →</a>
   </div>
 </article>
 
